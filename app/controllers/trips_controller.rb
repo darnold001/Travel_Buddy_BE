@@ -2,13 +2,13 @@ class TripsController < ApplicationController
 
 
     def create
-        @trip = Trip.Create!(trip_params)
+        @trip = Trip.create(trip_params)
         render json: @trip
     end
 
     def index
         @trips = Trip.all
-        render json: @trip
+        render json: @trips
     end
     
     def show
@@ -31,7 +31,7 @@ class TripsController < ApplicationController
 private
 
     def trip_params
-        params.require(:trip).permit(:tripName, :rating, :trip_id, :created_at, :updated_at)
+        params.require(:trip).permit(:trip_name, :rating, :user_id, :created_at, :updated_at)
     end
 
     def set_user

@@ -10,18 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_193019) do
+ActiveRecord::Schema.define(version: 2019_08_20_195746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "trips", force: :cascade do |t|
-    t.string "tripName"
-    t.integer "rating"
+  create_table "locations", force: :cascade do |t|
+    t.string "country"
+    t.string "city"
+    t.string "locName"
+    t.string "lat"
+    t.string "long"
+    t.text "notes"
     t.bigint "trip_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["trip_id"], name: "index_trips_on_trip_id"
+    t.index ["trip_id"], name: "index_locations_on_trip_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.string "trip_name"
+    t.integer "rating"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,5 +46,6 @@ ActiveRecord::Schema.define(version: 2019_08_19_193019) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "trips", "trips"
+  add_foreign_key "locations", "trips"
+  add_foreign_key "trips", "users"
 end

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
    # before_action :set_user, only: [:show, :index, :update, :destroy]
 
     def create
-        @user = User.Create!(user_params)
+        @user = User.create(user_params)
         render json: @user
     end
 
@@ -12,11 +12,12 @@ class UsersController < ApplicationController
     end
     
     def show
-        @user = User.find(params[:id])
+        @user = User.find_by(email: params[:id])
         render json: @user
     end
 
     def update
+        @user = User.find(params[:id])
         @user.update(user_params)
         head :no_content
     end
